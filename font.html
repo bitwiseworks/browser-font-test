@@ -1,5 +1,5 @@
 <html><head>
-<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<style type="text/css">
 			table, td, tr 
 			{  
@@ -26,7 +26,10 @@
 		var symbols4 = new CharRange (123, 126);
 		var symbols = new CharRangeGroup (symbols1, symbols2, symbols3, symbols4);
 
-		var defaultText="AalAui BiaBaz CojCeo DabDud EifEud FofFao GuiGup HexHof IuaIaw JatJeq KinKel LosLov MezMod NusNeo OihOug PiqPin QecQes RorRoj SioSoy TapTao UeyUeu VepVuq WujWem XuiXui YupYuk ZaoZuq aizaez bovboc cafcaz duqdaw eeseez fagfus gulgek hiohus ioaiem jicjiw kiskek lihloh moqmec nejnuo oeqoae ponpoh qeuqeu risret setsec tiztah uuwuiu venvif wimwug xojxei yoryit zalzai AATAUO BUMBUO CIYCIU DOJDUX EEREAN FAOFAW GAWGIL HIBHOR IEKIEA JUAJUE KUHKEJ LINLIE MUXMEO NUZNUX OIBOUP POYPEM QIDQUA RAQRII SOTSIC TISTAH UAKUAR VEXVAM WIVWOS XUGXID YIGYEF ZIEZIA AUNAOP BEEBEQ CIJCEP DUBDEW 766621 715836 545437 912680 307471 973879 249868 700036 161131 608482 301409 129633 !:[{)@_}  ;\\|(>`|\"  ]})@[}#<  ~#:[|$=^  %>_{\"=[}  ?`|,@]}&  [}/=[|'@  ~\"<[|(:\\  );]{-@]{  <^|$=\\~*  _}'>^}+=  ~&@^|,>`  -?[{,=^}  @\\|#;[}.  ]}+=^|/:  ~,=[~!;^  \"<_{,<[{  =`|$=`{#  [}#<_|$>  ~&:`{%?\\"
+                var loremIpsum = [
+			"Lorem ipsum at, elementum fusce integer ornare gravida porta morbi, fusce molestie ipsum vulputate cursus, pharetra ipsum. Nec sodales, adipiscing, sagittis nam pellentesque adipiscing arcu lorem ut pharetra adipiscing vitae lectus mattis nibh tellus diam eu donec nec. Vitae, arcu nulla sem a vivamus odio sem molestie donec, tellus vitae quam - ipsum auctor vivamus tellus urna in, amet magna curabitur rutrum. Curabitur lectus cursus mauris - vitae a leo, et ornare duis pellentesque, sodales sapien diam - orci ornare leo. Nulla, massa tellus arcu at odio nibh ultricies curabitur pharetra rutrum, bibendum. Rutrum ornare vivamus mattis maecenas, non mauris nibh ut sapien molestie metus - ut adipiscing, auctor non.",
+			"Пользы только а по немалое возлюбил - тягостными которого и порицающих: счастливой я или избегал порицающих физическими, упражнениями когда наслаждение чтобы упражнениями презирает возникают. Это справедливости которое некое приносят и с истину именно или за всю разумно страдания, чтобы возникают приносят заниматься неприятностей не, наслаждения назвал. Страдание назвал когда - упражнениями жизни стремящегося, физическими некое тягостными то умеет. Какими боль когда всю из-за лишь из, картину назвал, за. Справедливости приносят поняли отвергает физическими eсли физическими, неприятностей упрекнуть."
+                ];
 
 		var min;
 		var max;
@@ -36,7 +39,8 @@
 		var charend;
 		var family;
 		var randomseed;
-		var showDefaultText;
+		var loremIpsumNo;
+		var showLoremIpsum;
 		var Text;
 		var useText;
 		var fgcolor;
@@ -56,8 +60,9 @@
 			charend=0x007F;
 			family="Arial";
 			randomseed=1;
-			showDefaultText = true;
-			Text = defaultText;
+			loremIpsumNo=0;
+			showLoremIpsum = true;
+			Text = loremIpsum[loremIpsumNo];
 			useText = "";
 			bgcolor = "FFFFFF";
 			fgcolor = "000000";
@@ -397,7 +402,7 @@
 			}
 			
 			if (useText != "") Text = useText;
-			else if (showDefaultText) Text = defaultText;
+			else if (showLoremIpsum) Text = loremIpsum[loremIpsumNo];
 			else Text = gettext(charstart, charend);
 
 		/* else Text = englishText();*/
@@ -591,7 +596,7 @@
 			setFields();
 
 			if (useText != "") Text = useText;
-			else if (showDefaultText) Text = defaultText;
+			else if (showLoremIpsum) Text = loremIpsum[loremIpsumNo];
 			else Text = gettext(charstart, charend);
 			populate();
 		}
@@ -667,10 +672,11 @@
 		}
 
 		function setRange(){
-			showDefaultText = false;
+			showLoremIpsum = false;
 			block = document.getElementById("block").options[document.getElementById("block").selectedIndex].value;
 			switch (block) {
-				case "200": charstart = 0x0020; charend = 0x007F; showDefaultText = true; break;
+				case "200": showLoremIpsum = true; loremIpsumNo = 0; break;
+				case "201": showLoremIpsum = true; loremIpsumNo = 1; break;
 				case "1008": charstart = 0x0410; charend = 0x044F; break;
 				case "1009": charstart = 0x0388; charend = 0x03CE; break;
 				case "0": charstart = 0x0020; charend = 0x007F; break;
@@ -973,26 +979,23 @@
 							<td>
 								<div id="spinCtrlContainerMin">
 									Min<div id="spinMin"></div>
-								<div style="width: 50px;" class="spinContainer"><div style="left: 0px;" class="spinLeftRightEdge"></div><div style="top: 19px; width: 49px;" class="spinTopBottomEdge"></div><div style="top: 0px; width: 49px;" class="spinTopBottomEdge"></div><div style="right: 0px;" class="spinLeftRightEdge"></div><input value="8" style="width: 30px;" class="spinInput" type="text"><div class="spinUpBtn"></div><div class="spinDownBtn"></div></div></div>
 							</td>
 							<td>
 								<div id="spinCtrlContainerMax">
 									Max<div id="spinMax"></div>
-								<div style="width: 50px;" class="spinContainer"><div style="left: 0px;" class="spinLeftRightEdge"></div><div style="top: 19px; width: 49px;" class="spinTopBottomEdge"></div><div style="top: 0px; width: 49px;" class="spinTopBottomEdge"></div><div style="right: 0px;" class="spinLeftRightEdge"></div><input value="18" style="width: 30px;" class="spinInput" type="text"><div class="spinUpBtn"></div><div class="spinDownBtn"></div></div></div>
 							</td>
 							<td>
 								<div id="spinCtrlContainerStep">
 									Step<div id="spinStep"></div>
-								<div style="width: 50px;" class="spinContainer"><div style="left: 0px;" class="spinLeftRightEdge"></div><div style="top: 19px; width: 49px;" class="spinTopBottomEdge"></div><div style="top: 0px; width: 49px;" class="spinTopBottomEdge"></div><div style="right: 0px;" class="spinLeftRightEdge"></div><input value="1" style="width: 30px;" class="spinInput" type="text"><div class="spinUpBtn"></div><div class="spinDownBtn"></div></div></div>
 							</td>
 							<td>
 								<div id="spinCtrlContainerRandom">
 									Seed<div id="spinRandom"></div>
-								<div style="width: 50px;" class="spinContainer"><div style="left: 0px;" class="spinLeftRightEdge"></div><div style="top: 19px; width: 49px;" class="spinTopBottomEdge"></div><div style="top: 0px; width: 49px;" class="spinTopBottomEdge"></div><div style="right: 0px;" class="spinLeftRightEdge"></div><input value="1" style="width: 30px;" class="spinInput" type="text"><div class="spinUpBtn"></div><div class="spinDownBtn"></div></div></div>
 							</td>
 							<td>
 								<select onchange="setRange(); updatePage(0);" name="block" id="block">
-									<option selected="selected" value="200">Default Text</option>
+									<option selected="selected" value="200">Lorem Ipsum (Latin)</option>
+									<option value="201">Lorem Ipsum (Russian)</option>
 									<option value="1008">Basic Russian</option>
 									<option value="1009">Basic Greek</option>
 									<option value="0">0020-007F &nbsp; Basic Latin</option>
